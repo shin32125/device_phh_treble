@@ -68,15 +68,20 @@ if getprop ro.hardware |grep -qF qcom && [ -f /sys/class/backlight/panel0-backli
 fi
 
 if [ "$(getprop ro.vendor.product.device)" == "OnePlus6" ];then
-	resize2fs /dev/block/platform/soc/1d84000.ufshc/by-name/userdata
+  	resize2fs /dev/block/platform/soc/1d84000.ufshc/by-name/userdata
+fi
+
+if [ "$(getprop ro.vendor.product.device)" == "clover" ];then
+  	setprop ro.sf.lcd_density 320
+    setprop ro.build.characteristics tablet
 fi
 
 if getprop ro.vendor.build.fingerprint |grep -q full_k50v1_64 || getprop ro.hardware |grep -q mt6580 ;then
-	setprop persist.sys.overlay.nightmode false
+  	setprop persist.sys.overlay.nightmode false
 fi
 
 if getprop ro.wlan.mtk.wifi.5g |grep -q 1;then
-	setprop persist.sys.overlay.wifi5g true
+  	setprop persist.sys.overlay.wifi5g true
 fi
 
 if grep -qF 'mkdir /data/.fps 0770 system fingerp' vendor/etc/init/hw/init.mmi.rc;then
