@@ -97,3 +97,22 @@ if grep -qF 'mkdir /data/.fps 0770 system fingerp' vendor/etc/init/hw/init.mmi.r
     chown system:9015 /sys/devices/soc/soc:fpc_fpc1020/irq
     chown system:9015 /sys/devices/soc/soc:fpc_fpc1020/irq_cnt
 fi
+
+if mount -o remount,rw /system;then
+    realmodel="$(getprop ro.vendor.product.model)"
+    realdevice="$(getprop ro.vendor.product.device)"
+    realdevicealt="$(getprop ro.boot.device)"
+    if [ -n "$realmodel" ]; then
+        grep -q "ro.product.model=${realmodel}" /system/build.prop || sed -i "1i ro.product.model=${realmodel}" /system/build.prop || true
+    fi
+    if [ -n "$realdevice" ]; then
+        grep -q "ro.product.device=${realmodel}" /system/build.prop || sed -i "1i ro.product.device=${realmodel}" /system/build.prop || true
+    fi
+
+    # If none of two exists, use alternative one... we need better way to handle
+    if [ -z "$realmodel" ] || [ -z "$realdevice" ] && [ -n "$realdevicealt" ]; then
+        grep -q "ro.product.model=${realdevicealt}" /system/build.prop || sed -i "1i ro.product.model=${realdevicealt}" /system/build.prop || true
+        grep -q "ro.product.device=${realdevicealt}" /system/build.prop || sed -i "1i ro.product.device=${realdevicealt}" /system/build.prop || true
+    fi
+fi
+mount -o remount,ro /system || true
