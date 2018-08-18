@@ -76,11 +76,6 @@ if [ "$(getprop ro.vendor.product.device)" == "OnePlus6" ];then
   	resize2fs /dev/block/platform/soc/1d84000.ufshc/by-name/userdata
 fi
 
-if [ "$(getprop ro.vendor.product.device)" == "clover" ];then
-  	setprop ro.sf.lcd_density 320
-    setprop ro.build.characteristics tablet
-fi
-
 if getprop ro.vendor.build.fingerprint |grep -q full_k50v1_64 || getprop ro.hardware |grep -q mt6580 ;then
   	setprop persist.sys.overlay.nightmode false
 fi
