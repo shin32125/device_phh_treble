@@ -5,6 +5,7 @@ on post-fs
 	export LD_CONFIG_FILE /system/etc/ld.config.${persist.sys.vndk}.txt
 
 	# HACK to fix Bluetooth audio
+	mount none /system/etc/usb_audio_policy_configuration.xml /vendor/etc/usb_audio_policy_configuration.xml bind
 	mount none /vendor/lost+found /vendor/etc/audio bind
 
 service phh_on_boot /system/bin/phh-on-boot.sh
