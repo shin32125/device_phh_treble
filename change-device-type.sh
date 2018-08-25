@@ -21,6 +21,7 @@ modify_on_match() {
         -e "s/ro.sf.lcd_density=.*/ro.sf.lcd_density=${lcd_density}/" \
         -e "s/ro.build.characteristics=.*/ro.build.characteristics=${characteristics}/" \
         /system/build.prop
+        echo "lockscreen.rot_override=true" >> /system/build.prop
 
         echo "Device type changed! Match: $2 $3"
     fi
