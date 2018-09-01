@@ -1,7 +1,12 @@
 #!/system/bin/sh
 
-if grep -qF android.hardware.boot /vendor/manifest.xml;then
-	bootctl mark-boot-successful
+[ "$(getprop vold.decrypt)" == "trigger_restart_min_framework" ] && exit 0
+if [ -f /vendor/bin/mtkmal ];then
+    if [ "$(getprop persist.mtk_ims_support)" == 1 -o "$(getprop persist.mtk_epdg_support)" == 1 ];then
+        setprop persist.mtk_ims_support 0
+        setprop persist.mtk_epdg_support 0
+        reboot
+    fi
 fi
 
 #Clear looping services
@@ -12,3 +17,7 @@ getprop | \
     while read svc ;do
         setprop ctl.stop $svc
     done
+
+if grep -qF android.hardware.boot /vendor/manifest.xml;then
+	bootctl mark-boot-successful
+fi
