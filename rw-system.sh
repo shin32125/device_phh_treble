@@ -94,6 +94,11 @@ fi
 
 if getprop ro.vendor.build.fingerprint |grep -q Xiaomi/clover/clover;then
     setprop persist.sys.qcom-brightness $(cat /sys/class/leds/lcd-backlight/max_brightness)
+
+    #FIXME Force enable tap to wake
+    chown system system /sys/devices/soc/c177000.i2c/i2c-3/3-0038/fts_gesture_mode
+    chmod 0660 /sys/devices/soc/c177000.i2c/i2c-3/3-0038/fts_gesture_mode
+    echo "1" > /sys/devices/soc/c177000.i2c/i2c-3/3-0038/fts_gesture_mode
 fi
 
 for f in /vendor/lib/mtk-ril.so /vendor/lib64/mtk-ril.so;do
