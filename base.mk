@@ -73,6 +73,10 @@ PRODUCT_COPY_FILES += \
 	device/phh/treble/twrp/busybox-armv7l:system/bin/busybox_phh
 
 PRODUCT_COPY_FILES += \
+	device/phh/treble/files/samsung-gpio_keys.kl:system/phh/samsung-gpio_keys.kl \
+	device/phh/treble/files/samsung-sec_touchscreen.kl:system/phh/samsung-sec_touchscreen.kl
+
+PRODUCT_COPY_FILES += \
 	device/phh/treble/device.rc:system/etc/init/device.rc \
 	device/phh/treble/change-device-name.sh:system/bin/change-device-name.sh \
 	device/phh/treble/device-type.rc:system/etc/init/device-type.rc \
