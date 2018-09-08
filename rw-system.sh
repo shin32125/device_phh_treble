@@ -75,6 +75,7 @@ mount -o remount,ro / || true
 
 mkdir -p /mnt/phh/
 mount -t tmpfs -o rw,nodev,relatime,mode=755,gid=0 none /mnt/phh || true
+mkdir /mnt/phh/empty_dir
 set +e
 fixSPL
 set -e
@@ -137,3 +138,5 @@ for f in /vendor/lib/mtk-ril.so /vendor/lib64/mtk-ril.so;do
 done
 
 mount -o bind /system/phh/empty /vendor/overlay/SysuiDarkTheme/SysuiDarkTheme.apk || true
+
+mount -o bind /mnt/phh/empty_dir /vendor/etc/audio/ || true
