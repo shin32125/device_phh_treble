@@ -11,9 +11,25 @@ fi
 
 if getprop ro.vendor.build.fingerprint |grep -q Xiaomi/clover/clover;then
     #FIXME Force enable tap to wake
-    chown system system /sys/devices/soc/c177000.i2c/i2c-3/3-0038/fts_gesture_mode
+    chown system.system /sys/devices/soc/c177000.i2c/i2c-3/3-0038/fts_gesture_mode
     chmod 0660 /sys/devices/soc/c177000.i2c/i2c-3/3-0038/fts_gesture_mode
     echo "1" > /sys/devices/soc/c177000.i2c/i2c-3/3-0038/fts_gesture_mode
+
+    #Set permissions for LED
+    chown system.system /sys/class/leds/red/brightness
+    chown system.system /sys/class/leds/red/blink
+    chown system.system /sys/class/leds/red/duty_pcts
+    chown system.system /sys/class/leds/red/pause_hi
+    chown system.system /sys/class/leds/red/pause_lo
+    chown system.system /sys/class/leds/red/ramp_step_ms
+    chown system.system /sys/class/leds/red/start_idx
+
+    chmod 660 /sys/class/leds/red/blink
+    chmod 660 /sys/class/leds/red/duty_pcts
+    chmod 660 /sys/class/leds/red/pause_hi
+    chmod 660 /sys/class/leds/red/pause_lo
+    chmod 660 /sys/class/leds/red/ramp_step_ms
+    chmod 660 /sys/class/leds/red/start_idx
 fi
 
 #Clear looping services
