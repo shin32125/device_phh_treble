@@ -9,3 +9,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Camera
 PRODUCT_PACKAGES += \
 	Snap
+
+#Lights for Xiaomi SDM660
+PRODUCT_PACKAGES += \
+	android.hardware.light@2.0-service.xiaomi_sdm660
