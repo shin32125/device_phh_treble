@@ -137,6 +137,7 @@ for f in /vendor/lib/mtk-ril.so /vendor/lib64/mtk-ril.so;do
     mount -o bind /mnt/phh/$b $f
 done
 
-mount -o bind /system/phh/empty /vendor/overlay/SysuiDarkTheme/SysuiDarkTheme.apk || true
-
 mount -o bind /mnt/phh/empty_dir /vendor/etc/audio/ || true
+
+mount -o bind /system/phh/empty /vendor/overlay/SysuiDarkTheme/SysuiDarkTheme.apk || true
+mount -o bind /system/phh/empty /vendor/overlay/SysuiDarkTheme/SysuiDarkThemeOverlay.apk || true
