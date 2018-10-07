@@ -22,13 +22,14 @@ modify_on_match() {
         -e "s/ro.build.characteristics=.*/ro.build.characteristics=${characteristics}/" \
         /system/build.prop
 
+        if [ "${characteristics}" = "tablet" ]; then
+            sed -i "1i lockscreen.rot_override=true" /system/build.prop
+            sed -i "1i config.force_bottom_navbar=1" /system/build.prop
+        fi
+
         echo "Device type changed! Match: $2 $3"
     fi
 
-    if [ "${characteristics}" = "tablet" ]; then
-        sed -i "1i lockscreen.rot_override=true" /system/build.prop
-        sed -i "1i config.force_bottom_navbar=1" /system/build.prop
-    fi
 }
 
 mount -o remount,rw /system
