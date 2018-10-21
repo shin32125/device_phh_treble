@@ -9,6 +9,14 @@ if [ -f /vendor/bin/mtkmal ];then
     fi
 fi
 
+#Enable tap to wake for Xiaomi Mi Pad 4
+if getprop ro.vendor.build.fingerprint |grep -q Xiaomi/clover/clover;then
+    #FIXME Force enable tap to wake
+    chown system system /sys/devices/soc/c177000.i2c/i2c-3/3-0038/fts_gesture_mode
+    chmod 0660 /sys/devices/soc/c177000.i2c/i2c-3/3-0038/fts_gesture_mode
+    echo "1" > /sys/devices/soc/c177000.i2c/i2c-3/3-0038/fts_gesture_mode
+fi
+
 #Clear looping services
 sleep 30
 getprop | \

@@ -24,12 +24,12 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 	ro.build.version.all_codenames=$(PLATFORM_VERSION_ALL_CODENAMES) \
 	ro.build.version.release=$(PLATFORM_VERSION) \
 	ro.build.version.security_patch=$(PLATFORM_SECURITY_PATCH) \
-	ro.adb.secure=0 
-	
+	ro.adb.secure=0
+
 #Huawei HiSuite (also other OEM custom programs I guess) it's of no use in AOSP builds
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 	persist.sys.usb.config=adb \
-	ro.cust.cdrom=/dev/null	
+	ro.cust.cdrom=/dev/null
 
 #VNDK config files
 PRODUCT_COPY_FILES += \
@@ -49,7 +49,7 @@ PRODUCT_COPY_FILES += \
 
 # LineageOS build may need this to make NFC work
 PRODUCT_PACKAGES += \
-        NfcNci  
+        NfcNci
 
 PRODUCT_COPY_FILES += \
 	device/phh/treble/rw-system.sh:system/bin/rw-system.sh \
@@ -94,3 +94,9 @@ PRODUCT_COPY_FILES += \
 	device/phh/treble/files/huawei-fingerprint.kl:system/phh/huawei/fingerprint.kl \
 
 SELINUX_IGNORE_NEVERALLOWS := true
+
+PRODUCT_COPY_FILES += \
+	device/phh/treble/device.rc:system/etc/init/device.rc \
+	device/phh/treble/change-device-name.sh:system/bin/change-device-name.sh \
+	device/phh/treble/device-type.rc:system/etc/init/device-type.rc \
+	device/phh/treble/change-device-type.sh:system/bin/change-device-type.sh
