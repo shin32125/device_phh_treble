@@ -28,8 +28,8 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 	
 #Huawei HiSuite (also other OEM custom programs I guess) it's of no use in AOSP builds
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-	persist.sys.usb.config=adb
-	
+	persist.sys.usb.config=adb \
+	ro.cust.cdrom=/dev/null	
 
 #VNDK config files
 PRODUCT_COPY_FILES += \
@@ -91,5 +91,6 @@ PRODUCT_COPY_FILES += \
 	device/phh/treble/files/samsung-gpio_keys.kl:system/phh/samsung-gpio_keys.kl \
 	device/phh/treble/files/samsung-sec_touchscreen.kl:system/phh/samsung-sec_touchscreen.kl \
 	device/phh/treble/files/oneplus6-synaptics_s3320.kl:system/phh/oneplus6-synaptics_s3320.kl \
+	device/phh/treble/files/huawei-fingerprint.kl:system/phh/huawei/fingerprint.kl \
 
 SELINUX_IGNORE_NEVERALLOWS := true

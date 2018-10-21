@@ -54,15 +54,21 @@ changeKeylayout() {
         chmod 0644 /mnt/phh/keylayout/gpio_keys.kl /mnt/phh/keylayout/sec_touchscreen.kl
     fi
 
-    if getprop ro.vendor.build.fingerprint |grep -iq -e xiaomi/polaris -e xiaomi/sirius -e xiaomi/dipper;then
+    if getprop ro.vendor.build.fingerprint |grep -iq -e xiaomi/polaris -e xiaomi/sirius -e xiaomi/dipper -e xiaomi/wayne -e xiaomi/jasmine;then
         cp /system/phh/empty /mnt/phh/keylayout/uinput-goodix.kl
         chmod 0644 /mnt/phh/keylayout/uinput-goodix.kl
         changed=true
     fi
 
-    if [ "$(getprop ro.vendor.product.device)" == "OnePlus6" ];then
+    if getprop ro.vendor.build.fingerprint |grep -qi oneplus/oneplus6/oneplus6;then
         cp /system/phh/oneplus6-synaptics_s3320.kl /mnt/phh/keylayout/synaptics_s3320.kl
         chmod 0644 /mnt/phh/keylayout/synaptics_s3320.kl
+        changed=true
+    fi
+
+    if getprop ro.vendor.build.fingerprint | grep -iq -e xiaomi/wayne -e xiaomi/jasmine;then
+        cp /system/phh/empty /mnt/phh/keylayout/uinput-fpc.kl
+        chmod 0644 /mnt/phh/keylayout/uinput-fpc.kl
         changed=true
     fi
 
@@ -100,7 +106,7 @@ if getprop ro.hardware |grep -qF qcom && [ -f /sys/class/backlight/panel0-backli
     setprop persist.sys.qcom-brightness $(cat /sys/class/backlight/panel0-backlight/max_brightness)
 fi
 
-if [ "$(getprop ro.vendor.product.device)" == "OnePlus6" ];then
+if getprop ro.vendor.build.fingerprint |grep -qi oneplus/oneplus6/oneplus6;then
 	resize2fs /dev/block/platform/soc/1d84000.ufshc/by-name/userdata
 fi
 
@@ -125,9 +131,19 @@ if getprop ro.vendor.build.fingerprint |grep -q -e Xiaomi/clover/clover -e iaomi
     setprop persist.sys.qcom-brightness $(cat /sys/class/leds/lcd-backlight/max_brightness)
 fi
 
-if getprop ro.vendor.build.fingerprint |grep -q -e Xiaomi/beryllium/beryllium -e Xiaomi/sirius/sirius -e Xiaomi/dipper/dipper -e Xiaomi/ursa/ursa -e Xiaomi/polaris/polaris;then
+if getprop ro.vendor.build.fingerprint |grep -q \
+	-e Xiaomi/beryllium/beryllium -e Xiaomi/sirius/sirius \
+	-e Xiaomi/dipper/dipper -e Xiaomi/ursa/ursa -e Xiaomi/polaris/polaris \
+	-e motorola/ali/ali ;then
     mount -o bind /mnt/phh/empty_dir /vendor/lib64/soundfx
     mount -o bind /mnt/phh/empty_dir /vendor/lib/soundfx
+fi
+
+if getprop ro.vendor.build.fingerprint |grep -q -i -e xiaomi/wayne -e xiaomi/jasmine;then
+    setprop persist.imx376_sunny.low.lux 310
+    setprop persist.imx376_sunny.light.lux 280
+    setprop persist.imx376_ofilm.low.lux 310
+    setprop persist.imx376_ofilm.light.lux 280
 fi
 
 for f in /vendor/lib/mtk-ril.so /vendor/lib64/mtk-ril.so;do
@@ -144,6 +160,7 @@ for f in /vendor/lib/mtk-ril.so /vendor/lib64/mtk-ril.so;do
 done
 
 mount -o bind /system/phh/empty /vendor/overlay/SysuiDarkTheme/SysuiDarkTheme.apk || true
+mount -o bind /system/phh/empty /vendor/overlay/SysuiDarkTheme/SysuiDarkThemeOverlay.apk || true
 
 if grep -qF 'PowerVR Rogue GE8100' /vendor/lib/egl/GLESv1_CM_mtk.so;then
 	setprop debug.hwui.renderer opengl
