@@ -100,3 +100,7 @@ PRODUCT_COPY_FILES += \
 	device/phh/treble/change-device-name.sh:system/bin/change-device-name.sh \
 	device/phh/treble/device-type.rc:system/etc/init/device-type.rc \
 	device/phh/treble/change-device-type.sh:system/bin/change-device-type.sh
+
+# Universal NoCutoutOverlay
+PRODUCT_PACKAGES += \
+    NoCutoutOverlay
