@@ -3,3 +3,6 @@ ro.adb.secure=0
 #Disable for everyone for the moment
 ro.sys.sdcardfs=0
 persist.sys.overlay.nightmode=true
+
+#Enable Wireless Display
+persist.debug.wfd.enable=1
