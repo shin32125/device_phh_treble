@@ -18,13 +18,15 @@ modify_on_match() {
 
     if [ -n "${match_result}" ]; then
         sed -i \
-        -e "s/ro.sf.lcd_density=.*/ro.sf.lcd_density=${lcd_density}/" \
-        -e "s/ro.build.characteristics=.*/ro.build.characteristics=${characteristics}/" \
+        -e "1i ro.sf.lcd_density=${lcd_density}" \
+        -e "1i ro.build.characteristics=${characteristics}" \
         /system/build.prop
 
         if [ "${characteristics}" = "tablet" ]; then
-            sed -i "1i lockscreen.rot_override=true" /system/build.prop
-            sed -i "1i config.force_bottom_navbar=1" /system/build.prop
+            sed -i \
+            -e "1i lockscreen.rot_override=true" \
+            -e "1i config.force_bottom_navbar=1" \
+            /system/build.prop
         fi
 
         echo "Device type changed! Match: $2 $3"
