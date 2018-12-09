@@ -60,7 +60,7 @@ changeKeylayout() {
         chmod 0644 /mnt/phh/keylayout/gpio_keys.kl /mnt/phh/keylayout/sec_touchscreen.kl
     fi
 
-    if getprop ro.vendor.build.fingerprint |grep -iq -e xiaomi/polaris -e xiaomi/sirius -e xiaomi/dipper -e xiaomi/wayne -e xiaomi/jasmine -e xiaomi/jasmine_sprout;then
+    if getprop ro.vendor.build.fingerprint |grep -iq -e xiaomi/polaris -e xiaomi/sirius -e xiaomi/dipper -e xiaomi/wayne -e xiaomi/jasmine -e xiaomi/jasmine_sprout -e xiaomi/platina -e iaomi/perseus;then
         cp /system/phh/empty /mnt/phh/keylayout/uinput-goodix.kl
         chmod 0644 /mnt/phh/keylayout/uinput-goodix.kl
         cp /system/phh/empty /mnt/phh/keylayout/uinput-fpc.kl
@@ -74,14 +74,17 @@ changeKeylayout() {
         changed=true
     fi
 
+    if getprop ro.vendor.build.fingerprint |grep -iq -e iaomi/perseus;then
+        cp /system/phh/mimix3-gpio-keys.kl /mnt/phh/keylayout/gpio-keys.kl
+        chmod 0644 /mnt/phh/keylayout/gpio-keys.kl
+        changed=true
+    fi
+
     if [ "$changed" == true ];then
         mount -o bind /mnt/phh/keylayout /system/usr/keylayout
         restorecon -R /system/usr/keylayout
     fi
 }
-
-mount -o bind /system/phh/empty /vendor/lib/hw/keystore.exynos7870.so
-mount -o bind /system/phh/empty /vendor/lib/hw/keystore.mdfpp.so
 
 if mount -o remount,rw /system;then
 	resize2fs $(grep ' /system ' /proc/mounts |cut -d ' ' -f 1) || true
@@ -133,14 +136,14 @@ if grep -qF 'mkdir /data/.fps 0770 system fingerp' vendor/etc/init/hw/init.mmi.r
     chown system:9015 /sys/devices/soc/soc:fpc_fpc1020/irq_cnt
 fi
 
-if getprop ro.vendor.build.fingerprint |grep -q -i -e xiaomi/clover -e xiaomi/wayne -e xiaomi/sakura -e xiaomi/nitrogen -e xiaomi/whyred;then
+if getprop ro.vendor.build.fingerprint |grep -q -i -e xiaomi/clover -e xiaomi/wayne -e xiaomi/sakura -e xiaomi/nitrogen -e xiaomi/whyred -e xiaomi/platina;then
     setprop persist.sys.qcom-brightness $(cat /sys/class/leds/lcd-backlight/max_brightness)
 fi
 
 if getprop ro.vendor.build.fingerprint |grep -q \
 	-e Xiaomi/beryllium/beryllium -e Xiaomi/sirius/sirius \
 	-e Xiaomi/dipper/dipper -e Xiaomi/ursa/ursa -e Xiaomi/polaris/polaris \
-	-e motorola/ali/ali -e iaomi/perseus/perseus ;then
+	-e motorola/ali/ali -e iaomi/perseus/perseus -e iaomi/platina/platina ;then
     mount -o bind /mnt/phh/empty_dir /vendor/lib64/soundfx
     mount -o bind /mnt/phh/empty_dir /vendor/lib/soundfx
 fi
@@ -168,7 +171,10 @@ done
 mount -o bind /system/phh/empty /vendor/overlay/SysuiDarkTheme/SysuiDarkTheme.apk || true
 mount -o bind /system/phh/empty /vendor/overlay/SysuiDarkTheme/SysuiDarkThemeOverlay.apk || true
 
-if grep -qF 'PowerVR Rogue GE8100' /vendor/lib/egl/GLESv1_CM_mtk.so || grep -qF 'PowerVR Rogue' /vendor/lib/egl/libGLESv1_CM_mtk.so;then
+if grep -qF 'PowerVR Rogue GE8100' /vendor/lib/egl/GLESv1_CM_mtk.so || \
+	grep -qF 'PowerVR Rogue' /vendor/lib/egl/libGLESv1_CM_mtk.so || \
+	(getprop ro.product.board | grep -qE -e msm8917 -e msm8937 -e msm8940);then
+
 	setprop debug.hwui.renderer opengl
 fi
 
