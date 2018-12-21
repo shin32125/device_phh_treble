@@ -11,10 +11,10 @@ fi
 VENDOR_FINGERPRINT="$(grep ro.vendor.build.fingerprint /vendor/build.prop | cut -d'=' -f 2)"
 echo "Vendor fingerprint: ${VENDOR_FINGERPRINT}"
 
-VENDOR_BRAND="$(grep ro.vendor.product.brand /vendor/build.prop | cut -d'=' -f 2)"
-VENDOR_MODEL="$(grep ro.vendor.product.model /vendor/build.prop | cut -d'=' -f 2)"
-VENDOR_NAME="$(grep ro.vendor.product.name /vendor/build.prop | cut -d'=' -f 2)"
-VENDOR_DEVICE="$(grep ro.vendor.product.device /vendor/build.prop | cut -d'=' -f 2)"
+VENDOR_BRAND="$(grep ro.product.vendor.brand /vendor/build.prop | cut -d'=' -f 2)"
+VENDOR_MODEL="$(grep ro.product.vendor.model /vendor/build.prop | cut -d'=' -f 2)"
+VENDOR_NAME="$(grep ro.product.vendor.name /vendor/build.prop | cut -d'=' -f 2)"
+VENDOR_DEVICE="$(grep ro.product.vendor.device /vendor/build.prop | cut -d'=' -f 2)"
 echo "Product brand: ${VENDOR_BRAND}"
 echo "Product model: ${VENDOR_MODEL}"
 echo "Product name: ${VENDOR_NAME}"
@@ -35,6 +35,7 @@ modify_on_match() {
         -e "s/ro.product.device=.*/ro.product.device=${device}/" \
         -e "s/ro.lineage.device=.*/ro.lineage.device=${device}/" \
         -e "s/ro.aicp.device=.*/ro.aicp.device=${device}/" \
+        -e "s/org.pixelexperience.device=.*/org.pixelexperience.device=${device}/" \
         /system/build.prop
 
         echo "Device name changed! Match: $2 $3 $4 $5"
@@ -46,6 +47,7 @@ modify_on_match() {
         -e "s/ro.product.device=.*/ro.product.device=${device}/" \
         -e "s/ro.lineage.device=.*/ro.lineage.device=${device}/" \
         -e "s/ro.aicp.device=.*/ro.aicp.device=${device}/" \
+        -e "s/org.pixelexperience.device=.*/org.pixelexperience.device=${device}/" \
         /system/build.prop
 
         echo "Device name changed! Match: $2 $3 $4 $5"
