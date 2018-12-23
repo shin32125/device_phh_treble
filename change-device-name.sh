@@ -45,6 +45,7 @@ modify_on_match() {
         -e "s/ro.product.model=.*/ro.product.model=${model}/" \
         -e "s/ro.product.name=.*/ro.product.name=${name}/" \
         -e "s/ro.product.device=.*/ro.product.device=${device}/" \
+        -e "s@ro.build.fingerprint=.*@ro.build.fingerprint=${VENDOR_FINGERPRINT}@" \
         -e "s/ro.lineage.device=.*/ro.lineage.device=${device}/" \
         -e "s/ro.aicp.device=.*/ro.aicp.device=${device}/" \
         -e "s/org.pixelexperience.device=.*/org.pixelexperience.device=${device}/" \
