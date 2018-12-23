@@ -100,6 +100,9 @@ PRODUCT_COPY_FILES += \
 	device/phh/treble/files/samsung-9810-floating_feature.xml:system/ph/sam-9810-flo_feat.xml \
 	device/phh/treble/files/mimix3-gpio-keys.kl:system/phh/mimix3-gpio-keys.kl
 
+PRODUCT_COPY_FILES += \
+	device/phh/treble/files/mix3-audio_policy_configuration.xml:system/phh/mix3-audio_policy_configuration.xml
+
 SELINUX_IGNORE_NEVERALLOWS := true
 
 PRODUCT_COPY_FILES += \

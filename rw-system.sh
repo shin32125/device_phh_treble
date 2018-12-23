@@ -225,4 +225,12 @@ if getprop ro.vendor.build.fingerprint | grep -qE -e ".*(crown|star)[q2]*lte.*" 
 	done
 fi
 
-mount -o bind /mnt/phh/empty_dir /vendor/etc/audio || true
+if getprop ro.vendor.build.fingerprint |grep -q \
+     -e Xiaomi/polaris/polaris -e iaomi/perseus/perseus ;then
+        mkdir /mnt/phh/audio
+        cp /system/phh/mix3-audio_policy_configuration.xml /mnt/phh/audio/audio_policy_configuration.xml
+        chmod 0644 /mnt/phh/audio/audio_policy_configuration.xml
+        mount -o bind /mnt/phh/audio /vendor/etc/audio
+else
+    mount -o bind /mnt/phh/empty_dir /vendor/etc/audio || true
+fi
