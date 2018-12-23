@@ -225,20 +225,4 @@ if getprop ro.vendor.build.fingerprint | grep -qE -e ".*(crown|star)[q2]*lte.*" 
 	done
 fi
 
-if getprop ro.hardware |grep -qF qcom && [ -f /vendor/etc/audio/audio_policy_configuration.xml ];then
-    mkdir /mnt/phh/audio
-    cp /vendor/etc/audio/audio_policy_configuration.xml /mnt/phh/audio/audio_policy_configuration.xml
-	chmod 0644 /mnt/phh/audio/audio_policy_configuration.xml
-
-    sed -i ':lbl1;N;s/<devicePort tagName="BT A2DP Out".*<\/devicePort>//;b lbl1;' /mnt/phh/audio/audio_policy_configuration.xml
-    sed -i ':lbl1;N;s/<devicePort tagName="BT A2DP Headphones".*<\/devicePort>//;b lbl1;' /mnt/phh/audio/audio_policy_configuration.xml
-    sed -i ':lbl1;N;s/<devicePort tagName="BT A2DP Speaker".*<\/devicePort>//;b lbl1;' /mnt/phh/audio/audio_policy_configuration.xml
-
-    sed -i ':lbl1;N;s/<route type="mix" sink="BT A2DP Out".*\/>//;b lbl1;' /mnt/phh/audio/audio_policy_configuration.xml
-    sed -i ':lbl1;N;s/<route type="mix" sink="BT A2DP Headphones".*\/>//;b lbl1;' /mnt/phh/audio/audio_policy_configuration.xml
-    sed -i ':lbl1;N;s/<route type="mix" sink="BT A2DP Speaker".*\/>//;b lbl1;' /mnt/phh/audio/audio_policy_configuration.xml
-
-    sed -i ':lbl1;N;s/<module name="a2dp".*<\/module>/<xi\:include href="\/vendor\/etc\/a2dp_audio_policy_configuration\.xml"\/>/;b lbl1;' /mnt/phh/audio/audio_policy_configuration.xml
-
-    mount -o bind /mnt/phh/audio /vendor/etc/audio || true
-fi
+mount -o bind /mnt/phh/empty_dir /vendor/etc/audio || true
