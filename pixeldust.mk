@@ -5,3 +5,7 @@ $(call inherit-product, vendor/pixeldust/configs/system_optional.mk)
 $(call inherit-product, vendor/googleapps/googleapps.mk)
 TARGET_BOOT_ANIMATION_RES := 1080
 TARGET_GAPPS_ARCH := arm64
+
+# Camera
+PRODUCT_PACKAGES += \
+	GoogleCameraMod
