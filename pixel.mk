@@ -6,3 +6,7 @@ TARGET_GAPPS_ARCH := arm64
 
 # Enable real time lockscreen charging current values
 BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
+
+# Camera
+PRODUCT_PACKAGES += \
+	GoogleCameraMod
