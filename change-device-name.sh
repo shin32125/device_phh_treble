@@ -11,6 +11,10 @@ fi
 VENDOR_FINGERPRINT="$(grep ro.vendor.build.fingerprint /vendor/build.prop | cut -d'=' -f 2)"
 echo "Vendor fingerprint: ${VENDOR_FINGERPRINT}"
 
+VENDOR_BRAND_O="$(grep ro.vendor.product.brand /vendor/build.prop | cut -d'=' -f 2)"
+VENDOR_MODEL_O="$(grep ro.vendor.product.model /vendor/build.prop | cut -d'=' -f 2)"
+VENDOR_NAME_O="$(grep ro.vendor.product.name /vendor/build.prop | cut -d'=' -f 2)"
+VENDOR_DEVICE_O="$(grep ro.vendor.product.device /vendor/build.prop | cut -d'=' -f 2)"
 VENDOR_BRAND="$(grep ro.product.vendor.brand /vendor/build.prop | cut -d'=' -f 2)"
 VENDOR_MODEL="$(grep ro.product.vendor.model /vendor/build.prop | cut -d'=' -f 2)"
 VENDOR_NAME="$(grep ro.product.vendor.name /vendor/build.prop | cut -d'=' -f 2)"
@@ -59,6 +63,8 @@ mount -o remount,rw /system
 
 if [ -n "${VENDOR_BRAND}" ] && [ -n "${VENDOR_MODEL}" ] && [ -n "${VENDOR_NAME}" ] && [ -n "${VENDOR_DEVICE}" ]; then
     modify_on_match "use_vendor_prop" "${VENDOR_BRAND}" "${VENDOR_MODEL}" "${VENDOR_NAME}" "${VENDOR_DEVICE}"
+elif [ -n "${VENDOR_BRAND_O}" ] && [ -n "${VENDOR_MODEL_O}" ] && [ -n "${VENDOR_NAME_O}" ] && [ -n "${VENDOR_DEVICE_O}" ]; then
+    modify_on_match "use_vendor_prop" "${VENDOR_BRAND_O}" "${VENDOR_MODEL_O}" "${VENDOR_NAME_O}" "${VENDOR_DEVICE_O}"
 fi
 
 # Add devices here, e.g.
