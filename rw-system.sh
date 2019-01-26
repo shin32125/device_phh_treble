@@ -1,5 +1,10 @@
 #!/system/bin/sh
 
+#Uncomment me to output sh -x of this script to /cache/phh/logs
+#if [ -z "$debug" ];then
+#	mkdir -p /cache/phh
+#	debug=1 exec sh -x "$(readlink -f -- "$0")" > /cache/phh/logs 2>&1
+#fi
 
 vndk="$(getprop persist.sys.vndk)"
 setprop sys.usb.ffs.aio_compat true
@@ -60,7 +65,11 @@ changeKeylayout() {
         chmod 0644 /mnt/phh/keylayout/gpio_keys.kl /mnt/phh/keylayout/sec_touchscreen.kl
     fi
 
-    if getprop ro.vendor.build.fingerprint |grep -iq -e xiaomi/polaris -e xiaomi/sirius -e xiaomi/dipper -e xiaomi/wayne -e xiaomi/jasmine -e xiaomi/jasmine_sprout -e xiaomi/platina -e iaomi/perseus;then
+    if getprop ro.vendor.build.fingerprint |grep -iq \
+        -e xiaomi/polaris -e xiaomi/sirius -e xiaomi/dipper \
+        -e xiaomi/wayne -e xiaomi/jasmine -e xiaomi/jasmine_sprout \
+        -e xiaomi/platina -e iaomi/perseus -e xiaomi/ysl \
+        -e xiaomi/nitrogen;then
         cp /system/phh/empty /mnt/phh/keylayout/uinput-goodix.kl
         chmod 0644 /mnt/phh/keylayout/uinput-goodix.kl
         cp /system/phh/empty /mnt/phh/keylayout/uinput-fpc.kl
@@ -147,17 +156,28 @@ if grep -qF 'mkdir /data/.fps 0770 system fingerp' vendor/etc/init/hw/init.mmi.r
     chown system:9015 /sys/devices/soc/soc:fpc_fpc1020/irq_cnt
 fi
 
-if getprop ro.vendor.build.fingerprint |grep -q -i -e xiaomi/clover -e xiaomi/wayne -e xiaomi/sakura -e xiaomi/nitrogen -e xiaomi/whyred -e xiaomi/platina;then
+if getprop ro.vendor.build.fingerprint |grep -q -i \
+    -e xiaomi/clover -e xiaomi/wayne -e xiaomi/sakura \
+    -e xiaomi/nitrogen -e xiaomi/whyred -e xiaomi/platina \
+    -e xiaomi/ysl;then
     setprop persist.sys.qcom-brightness $(cat /sys/class/leds/lcd-backlight/max_brightness)
 fi
 
-if getprop ro.vendor.build.fingerprint |grep -q \
+if getprop ro.vendor.build.fingerprint |grep -iq \
 	-e Xiaomi/beryllium/beryllium -e Xiaomi/sirius/sirius \
 	-e Xiaomi/dipper/dipper -e Xiaomi/ursa/ursa -e Xiaomi/polaris/polaris \
 	-e motorola/ali/ali -e iaomi/perseus/perseus -e iaomi/platina/platina \
-	-e iaomi/equuleus/equuleus;then
+	-e iaomi/equuleus/equuleus -e motorola/nora -e xiaomi/nitrogen \
+	-e motorola/hannah;then
     mount -o bind /mnt/phh/empty_dir /vendor/lib64/soundfx
     mount -o bind /mnt/phh/empty_dir /vendor/lib/soundfx
+fi
+
+if [ "$(getprop ro.vendor.product.manufacturer)" == "motorola" ];then
+    if getprop ro.vendor.product.device |grep -q -e nora -e ali -e hannah;then
+        mount -o bind /mnt/phh/empty_dir /vendor/lib64/soundfx
+        mount -o bind /mnt/phh/empty_dir /vendor/lib/soundfx
+    fi
 fi
 
 if getprop ro.vendor.build.fingerprint |grep -q -i -e xiaomi/wayne -e xiaomi/jasmine;then
@@ -211,6 +231,18 @@ if getprop ro.product.model |grep -qF ANE;then
 	setprop debug.sf.latch_unsignaled 1
 fi
 
+if getprop ro.vendor.build.fingerprint |grep -iq -E -e 'huawei|honor' || getprop persist.sys.overlay.huawei |grep -iq -E -e 'true' ; then
+	p=/product/etc/nfc/libnfc_nxp_*_*.conf
+	mount -o bind "$p" /system/etc/libnfc-nxp.conf || \
+		mount -o bind /product/etc/libnfc-nxp.conf /system/etc/libnfc-nxp.conf || true
+
+	p=/product/etc/nfc/libnfc_brcm_*_*.conf
+	mount -o bind "$p" /system/etc/libnfc-brcm.conf || \
+		mount -o bind /product/etc/libnfc-nxp.conf /system/etc/libnfc-nxp.conf || true
+
+	mount -o bind /system/phh/libnfc-nci-huawei.conf /system/etc/libnfc-nci.conf
+fi
+
 if getprop ro.vendor.build.fingerprint | grep -qE -e ".*(crown|star)[q2]*lte.*"  -e ".*(SC-0[23]K|SCV3[89]).*";then
 	for f in /vendor/lib/libfloatingfeature.so /vendor/lib64/libfloatingfeature.so;do
 		[ ! -f $f ] && continue
@@ -226,12 +258,18 @@ if getprop ro.vendor.build.fingerprint | grep -qE -e ".*(crown|star)[q2]*lte.*" 
 	done
 fi
 
+if getprop ro.hardware |grep -q samsungexynos7870;then
+	if [ "$vndk" -le 27 ];then
+		setprop persist.sys.phh.sdk_override /vendor/bin/hw/rild=27
+	fi
+fi
+
 if getprop ro.vendor.build.fingerprint |grep -q \
      -e Xiaomi/polaris/polaris -e iaomi/perseus/perseus ;then
         mkdir /mnt/phh/audio
         cp /system/phh/mix3-audio_policy_configuration.xml /mnt/phh/audio/audio_policy_configuration.xml
         chmod 0644 /mnt/phh/audio/audio_policy_configuration.xml
-        mount -o bind /mnt/phh/audio /vendor/etc/audio
+        mount -o bind /mnt/phh/audio /vendor/etc/audio || true
 else
     mount -o bind /mnt/phh/empty_dir /vendor/etc/audio || true
 fi
