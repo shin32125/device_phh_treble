@@ -15,7 +15,7 @@ TARGET_INIT_VENDOR_LIB := libinit_perseus
 TARGET_RECOVERY_DEVICE_MODULES := libinit_perseus
 
 PRODUCT_COPY_FILES += \
-    device/phh/treble/audio/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml
+    device/phh/treble/audio/audio_policy_configuration.xml:system/etc/audio_policy_configuration_vendor.xml
 
 # Lights
 PRODUCT_PACKAGES += \
