@@ -1,8 +1,6 @@
 $(call inherit-product, vendor/rr/config/common_full_phone.mk)
 $(call inherit-product, device/rr/sepolicy/common/sepolicy.mk)
 
-LOCAL_PATH:= $(call my-dir)
-
 # Power
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/wake_gesture"
 
@@ -17,7 +15,7 @@ TARGET_INIT_VENDOR_LIB := libinit_perseus
 TARGET_RECOVERY_DEVICE_MODULES := libinit_perseus
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml
+    /device/phh/treble/audio/audio_policy_configuration.xml:system/etc/audio_policy_configuration.xml
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -25,7 +23,7 @@ PRODUCT_PACKAGES += \
 
 # Media
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/media_profiles_vendor.xml:system/etc/media_profiles_vendor.xml
+    /device/phh/treble/configs/media_profiles_vendor.xml:system/etc/media_profiles_vendor.xml
 
 # Power
 PRODUCT_PACKAGES += \
@@ -33,8 +31,8 @@ PRODUCT_PACKAGES += \
 
 # QTI
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/qti_whitelist.xml:system/etc/sysconfig/qti_whitelist.xml \
-    $(LOCAL_PATH)/permissions/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml
+    /device/phh/treble/configs/qti_whitelist.xml:system/etc/sysconfig/qti_whitelist.xml \
+    /device/phh/treble/permissions/privapp-permissions-qti.xml:system/etc/permissions/privapp-permissions-qti.xml
 
 # IMS
 PRODUCT_PACKAGES += \
