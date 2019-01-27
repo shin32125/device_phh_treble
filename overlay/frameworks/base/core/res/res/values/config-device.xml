@@ -55,8 +55,8 @@
          that can be set by the user. -->
     <integer name="config_screenBrightnessDim">8</integer>
 
-    <integer name="config_screenBrightnessDoze">34</integer>
-    <bool name="config_allowAutoBrightnessWhileDozing">false</bool>
+    <integer name="config_screenBrightnessDoze">55</integer>
+    <bool name="config_allowAutoBrightnessWhileDozing">true</bool>
     
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N  1 zones as follows:
@@ -722,7 +722,7 @@
     <bool name="config_powerDecoupleAutoSuspendModeFromDisplay">true</bool>
 
     <bool name="config_displayBlanksAfterDoze">true</bool>
-    <bool name="config_dozeAfterScreenOff">true</bool>
+    <bool name="config_dozeAfterScreenOff">false</bool>
     <bool name="config_dozeAfterScreenOffByDefault">true</bool>
     <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
     <bool name="config_enableBurnInProtection">true</bool>
