@@ -1,6 +1,8 @@
 $(call inherit-product, vendor/rr/config/common_full_phone.mk)
 $(call inherit-product, device/rr/sepolicy/common/sepolicy.mk)
 
+LOCAL_PATH:= $(call my-dir)
+
 # Power
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/wake_gesture"
 
