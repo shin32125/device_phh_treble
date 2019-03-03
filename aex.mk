@@ -5,6 +5,10 @@ TARGET_BOOT_ANIMATION_RES := 1080
 
 TARGET_RIL_VARIANT := caf
 
+PRODUCT_PACKAGES := \
+	librilutils \
+    sap-api-java-static
+
 # GoogleCamera
 PRODUCT_PACKAGES += \
 	GoogleCameraMod
