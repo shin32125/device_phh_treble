@@ -35,6 +35,7 @@ modify_on_match() {
 }
 
 mount -o remount,rw /system
+mount -o remount,rw /
 
 # Add devices here, e.g.
 # modify_on_match <pattern> <lcd_density> <characteristics>
@@ -48,3 +49,4 @@ if [ -z "$(grep phh.device.typechanged /system/build.prop)" ]; then
 fi
 
 mount -o remount,ro /system
+mount -o remount,ro /

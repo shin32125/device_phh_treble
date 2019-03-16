@@ -60,6 +60,7 @@ modify_on_match() {
 }
 
 mount -o remount,rw /system
+mount -o remount,rw /
 
 if [ -n "${VENDOR_BRAND}" ] && [ -n "${VENDOR_MODEL}" ] && [ -n "${VENDOR_NAME}" ] && [ -n "${VENDOR_DEVICE}" ]; then
     modify_on_match "use_vendor_prop" "${VENDOR_BRAND}" "${VENDOR_MODEL}" "${VENDOR_NAME}" "${VENDOR_DEVICE}"
@@ -79,3 +80,4 @@ if [ -z "$(grep phh.device.namechanged /system/build.prop)" ]; then
 fi
 
 mount -o remount,ro /system
+mount -o remount,ro /
