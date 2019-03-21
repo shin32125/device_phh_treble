@@ -84,7 +84,7 @@ changeKeylayout() {
         changed=true
     fi
 
-    if getprop ro.vendor.build.fingerprint | grep -iq -e iaomi/perseus; then
+    if getprop ro.vendor.build.fingerprint | grep -iq -e iaomi/perseus -e iaomi/cepheus; then
         cp /system/phh/mimix3-gpio-keys.kl /mnt/phh/keylayout/gpio-keys.kl
         chmod 0644 /mnt/phh/keylayout/gpio-keys.kl
         changed=true
@@ -164,7 +164,7 @@ if getprop ro.vendor.build.fingerprint | grep -q -i \
 fi
 
 if getprop ro.vendor.product.device |grep -iq -e RMX1801 -e RMX1803 -e RMX1807;then	
-    setprop persist.sys.qcom-brightness $(cat /sys/class/leds/lcd-backlight/max_brightness)
+    setprop persist.sys.qcom-brightness "$(cat /sys/class/leds/lcd-backlight/max_brightness)"
 fi
 
 if getprop ro.vendor.build.fingerprint | grep -iq \
@@ -172,7 +172,7 @@ if getprop ro.vendor.build.fingerprint | grep -iq \
     -e Xiaomi/dipper/dipper -e Xiaomi/ursa/ursa -e Xiaomi/polaris/polaris \
     -e motorola/ali/ali -e iaomi/perseus/perseus -e iaomi/platina/platina \
     -e iaomi/equuleus/equuleus -e motorola/nora -e xiaomi/nitrogen \
-    -e motorola/hannah -e motorola/james -e motorola/pettyl; then
+    -e motorola/hannah -e motorola/james -e motorola/pettyl -e iaomi/cepheus;then
     mount -o bind /mnt/phh/empty_dir /vendor/lib64/soundfx
     mount -o bind /mnt/phh/empty_dir /vendor/lib/soundfx
 fi
@@ -312,12 +312,20 @@ if getprop ro.vendor.build.fingerprint | grep -qE '^xiaomi/daisy/daisy_sprout:8.
     setprop audio.camerasound.force true
 fi
 
-if getprop ro.vendor.build.fingerprint |grep -q \
-     -e Xiaomi/polaris/polaris -e iaomi/perseus/perseus ;then
-        mkdir /mnt/phh/audio
-        cp /system/phh/mix3-audio_policy_configuration.xml /mnt/phh/audio/audio_policy_configuration.xml
-        chmod 0644 /mnt/phh/audio/audio_policy_configuration.xml
-        mount -o bind /mnt/phh/audio /vendor/etc/audio || true
-else
-    mount -o bind /mnt/phh/empty_dir /vendor/etc/audio || true
-fi
+mount -o bind /mnt/phh/empty_dir /vendor/etc/audio || true
+
+for f in /vendor/lib{,64}/hw/com.qti.chi.override.so;do
+    [ ! -f $f ] && continue
+    # shellcheck disable=SC2010
+    ctxt="$(ls -lZ "$f" | grep -oE 'u:object_r:[^:]*:s0')"
+    b="$(echo "$f" | tr / _)"
+
+    cp -a "$f" "/mnt/phh/$b"
+    sed -i \
+        -e 's/ro.product.manufacturer/sys.phh.xx.manufacturer/g' \
+        "/mnt/phh/$b"
+    chcon "$ctxt" "/mnt/phh/$b"
+    mount -o bind "/mnt/phh/$b" "$f"
+
+    setprop sys.phh.xx.manufacturer "$(getprop ro.product.vendor.manufacturer)"
+done
