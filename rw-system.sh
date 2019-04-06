@@ -221,10 +221,10 @@ if getprop ro.vendor.build.fingerprint | grep -q -i -e xiaomi/wayne -e xiaomi/ja
 fi
 
 if getprop ro.board.platform | grep -q msmnile; then
-    mount none /system/lib64/hw/power.qcom.sm8150.so /vendor/lib64/hw/power.qcom.so bind
+    mount -o bind /system/lib64/hw/power.qcom.sm8150.so /vendor/lib64/hw/power.qcom.so || true
 else
-    mount -o bind /system/phh/empty /system/lib64/hw/power.qcom.sm8150.so
-    mount -o bind /system/phh/empty /system/etc/init/android.hardware.power@1.0-service.rc
+    mount -o bind /system/phh/empty /system/lib64/hw/power.qcom.sm8150.so || true
+    mount -o bind /system/phh/empty /system/etc/init/android.hardware.power@1.0-service.rc || true
 fi
 
 for f in /vendor/lib/mtk-ril.so /vendor/lib64/mtk-ril.so /vendor/lib/libmtk-ril.so /vendor/lib64/libmtk-ril.so; do
