@@ -55,6 +55,10 @@ modify_on_match() {
         -e "s/org.pixelexperience.device=.*/org.pixelexperience.device=${device}/" \
         /system/build.prop
 
+        sed -i \
+        -e "s@ro.build.fingerprint=.*@ro.build.fingerprint=${VENDOR_FINGERPRINT}@" \
+        /system/etc/prop.default
+
         echo "Device name changed! Match: $2 $3 $4 $5"
     fi
 }
