@@ -198,21 +198,6 @@ if [ "$(getprop ro.vendor.product.manufacturer)" = "motorola" ] || [ "$(getprop 
     fi
 fi
 
-for f in /vendor/lib/libeffects.so /vendor/lib64/libeffects.so; do
-    [ ! -f $f ] && continue
-    f="/vendor/lib/libeffects.so"
-    # shellcheck disable=SC2010
-    ctxt="$(ls -lZ "$f" | grep -oE 'u:object_r:[^:]*:s0')"
-    b="$(echo "$f" | tr / _)"
-
-    cp -a "$f" "/mnt/phh/$b"
-    sed -i \
-        's/%zu errors during loading of configuration: %s/%zu errors during loading of configuration: ss/g' \
-        "/mnt/phh/$b"
-    chcon "$ctxt" "/mnt/phh/$b"
-    mount -o bind "/mnt/phh/$b" "$f"
-done
-
 if getprop ro.vendor.build.fingerprint | grep -q -i -e xiaomi/wayne -e xiaomi/jasmine; then
     setprop persist.imx376_sunny.low.lux 310
     setprop persist.imx376_sunny.light.lux 280
@@ -241,6 +226,7 @@ for f in /vendor/lib/mtk-ril.so /vendor/lib64/mtk-ril.so /vendor/lib/libmtk-ril.
     mount -o bind "/mnt/phh/$b" "$f"
 
     setprop persist.sys.phh.radio.force_cognitive true
+    setprop persist.sys.radio.ussd.fix true
 done
 
 mount -o bind /system/phh/empty /vendor/overlay/SysuiDarkTheme/SysuiDarkTheme.apk || true
@@ -254,7 +240,7 @@ if grep -qF 'PowerVR Rogue GE8100' /vendor/lib/egl/GLESv1_CM_mtk.so ||
 fi
 
 #If we have both Samsung and AOSP power hal, take Samsung's
-if [ -f /vendor/bin/hw/vendor.samsung.hardware.miscpower@1.0-service ]; then
+if [ -f /vendor/bin/hw/vendor.samsung.hardware.miscpower@1.0-service ] && [ "$vndk" -lt 28 ]; then
     mount -o bind /system/phh/empty /vendor/bin/hw/android.hardware.power@1.0-service
 fi
 
@@ -286,7 +272,7 @@ if getprop ro.vendor.build.fingerprint | grep -iq -E -e 'huawei|honor' || getpro
     mount -o bind /system/phh/libnfc-nci-huawei.conf /system/etc/libnfc-nci.conf
 fi
 
-if getprop ro.vendor.build.fingerprint | grep -qE -e ".*(crown|star)[q2]*lte.*" -e ".*(SC-0[23]K|SCV3[89]).*"; then
+if getprop ro.vendor.build.fingerprint | grep -qE -e ".*(crown|star)[q2]*lte.*" -e ".*(SC-0[23]K|SCV3[89]).*" && [ "$vndk" -lt 28 ]; then
     for f in /vendor/lib/libfloatingfeature.so /vendor/lib64/libfloatingfeature.so; do
         [ ! -f "$f" ] && continue
         # shellcheck disable=SC2010
