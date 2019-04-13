@@ -8,9 +8,6 @@ SELINUX_IGNORE_NEVERALLOWS := true
 PRODUCT_PACKAGES += \
 	Snap
 
-# Camera
-TARGET_USES_QTI_CAMERA_DEVICE := true
-
 # Power
 PRODUCT_PACKAGES += \
 	power.qcom.sm8150:64
