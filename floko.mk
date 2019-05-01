@@ -4,6 +4,8 @@ $(call inherit-product, device/lineage/sepolicy/common/sepolicy.mk)
 
 SELINUX_IGNORE_NEVERALLOWS := true
 
+DEVICE_PACKAGE_OVERLAYS += device/phh/treble/overlay-lineage
+
 # Camera
 PRODUCT_PACKAGES += \
 	Snap
