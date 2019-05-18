@@ -179,6 +179,11 @@ if getprop ro.vendor.build.fingerprint | grep -iq \
     mount -o bind /mnt/phh/empty_dir /vendor/lib/soundfx
 fi
 
+if [ -f /vendor/lib/soundfx/libvolumelistener.so ] || [ -f /vendor/lib64/soundfx/libvolumelistener.so ];then
+    mount -o bind /mnt/phh/empty_dir /vendor/lib64/soundfx
+    mount -o bind /mnt/phh/empty_dir /vendor/lib/soundfx
+fi
+
 if [ "$(getprop ro.vendor.product.manufacturer)" = "motorola" ] || [ "$(getprop ro.product.vendor.manufacturer)" = "motorola" ]; then
     if getprop ro.vendor.product.device | grep -q -e nora -e ali -e hannah -e evert -e jeter -e deen -e james -e pettyl -e jater; then
         if [ "$vndk" -ge 28 ]; then
