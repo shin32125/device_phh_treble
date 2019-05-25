@@ -216,6 +216,11 @@ fi
     mount -o bind /system/phh/empty /system/etc/init/android.hardware.power.sm8150@1.0-service.rc || true
 #fi
 
+if getprop ro.vendor.build.fingerprint | grep -q -i -e OnePlus/OnePlus7Pro/OnePlus7Pro; then
+    setprop persist.vendor.sys.fp.fod.location.X_Y 583,2591
+    setprop persist.vendor.sys.fp.fod.size.width_height 272,272
+fi
+
 for f in /vendor/lib/mtk-ril.so /vendor/lib64/mtk-ril.so /vendor/lib/libmtk-ril.so /vendor/lib64/libmtk-ril.so; do
     [ ! -f $f ] && continue
     # shellcheck disable=SC2010
