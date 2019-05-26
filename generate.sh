@@ -16,7 +16,7 @@ echo 'PRODUCT_MAKEFILES := \' > AndroidProducts.mk
 
 for part in a ab;do
 	for apps in vanilla gapps foss gapps-go;do
-		for arch in arm64 arm a64;do
+		for arch in arm64 arm a64 x86;do
 			for su in yes no;do
 				apps_suffix=""
 				apps_script=""
