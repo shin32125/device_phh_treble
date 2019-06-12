@@ -294,8 +294,11 @@ if getprop ro.vendor.build.fingerprint | grep -qE -e ".*(crown|star)[q2]*lte.*" 
     done
 fi
 
-# This matches both Razer Phone 1 & 2
-if getprop ro.vendor.build.fingerprint |grep -qE razer/cheryl;then
+# This matches both Razer Phone 1 & 2, OnePlus 7 & 7 Pro
+if getprop ro.vendor.build.fingerprint |grep -iq \
+    -e razer/cheryl \
+    -e OnePlus/OnePlus7/OnePlus7 \
+    -e OnePlus/OnePlus7Pro/OnePlus7Pro;then
 	setprop ro.audio.monitorRotation true
 fi
 
