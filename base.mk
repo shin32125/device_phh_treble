@@ -141,5 +141,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	xiaomi-motor
 
+# Helper to debug OnePlus motorized camera
+PRODUCT_PACKAGES += \
+	oneplus-motor
+
 PRODUCT_PACKAGES += \
 	Stk
