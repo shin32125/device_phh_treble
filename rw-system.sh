@@ -302,13 +302,6 @@ if getprop ro.vendor.build.fingerprint |grep -iq \
 	setprop ro.audio.monitorRotation true
 fi
 
-if getprop ro.vendor.build.fingerprint |grep -iq \
-    -e OnePlus/OnePlus7/OnePlus7 \
-    -e OnePlus/OnePlus7Pro/OnePlus7Pro;then
-	chmod 0755 /system/phh/oneplus7-dashd
-    mount -o bind /system/phh/oneplus7-dashd /system/bin/dashd
-fi
-
 if getprop ro.vendor.build.fingerprint | grep -qiE '^samsung'; then
     if getprop ro.hardware | grep -q qcom; then
         setprop persist.sys.overlay.devinputjack false
