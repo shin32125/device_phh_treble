@@ -112,6 +112,9 @@ PRODUCT_COPY_FILES += \
 	device/phh/treble/files/mimix3-gpio-keys.kl:system/phh/mimix3-gpio-keys.kl
 
 PRODUCT_COPY_FILES += \
+	device/phh/treble/files/oneplus7-dashd:system/phh/oneplus7-dashd
+
+PRODUCT_COPY_FILES += \
 	device/phh/treble/files/mix3-audio_policy_configuration.xml:system/phh/mix3-audio_policy_configuration.xml
 
 SELINUX_IGNORE_NEVERALLOWS := true
