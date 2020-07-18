@@ -55,6 +55,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
         NfcNci \
 
+PRODUCT_PACKAGES += \
+        libnfc-nci \
+		libnfc_nci_jni \
+		SecureElement
+
 PRODUCT_COPY_FILES += \
 	device/phh/treble/rw-system.sh:system/bin/rw-system.sh \
 	device/phh/treble/phh-on-data.sh:system/bin/phh-on-data.sh \
