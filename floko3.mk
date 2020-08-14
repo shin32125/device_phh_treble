@@ -3,4 +3,7 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 # -include vendor/lineage/build/core/apicheck.mk
 
 PRODUCT_PACKAGES += \
-    cameraserver
+    cameraserver \
+	libcamera2ndk \
+    libcamera_client \
+	libcameraservice

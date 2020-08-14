@@ -59,7 +59,7 @@ PRODUCT_PACKAGES += \
         libnfc-nci \
 		libnfc_nci_jni \
 		SecureElement \
-		android.hardware.secure_element@1.1-service
+		android.hardware.secure_element@1.0-service
 
 PRODUCT_COPY_FILES += \
 	device/phh/treble/rw-system.sh:system/bin/rw-system.sh \
