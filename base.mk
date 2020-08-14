@@ -59,6 +59,7 @@ PRODUCT_PACKAGES += \
         libnfc-nci \
 		libnfc_nci_jni \
 		SecureElement \
+		android.hardware.secure_element@1.0 \
 		android.hardware.secure_element@1.0-service
 
 PRODUCT_COPY_FILES += \
