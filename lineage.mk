@@ -2,6 +2,7 @@ $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 $(call inherit-product, device/lineage/sepolicy/common/sepolicy.mk)
 -include vendor/lineage/build/core/config.mk
 -include vendor/lineage/build/core/apicheck.mk
+-include vendor/lineage/config/BoardConfigSoong.mk
 PRODUCT_SHIPPING_API_LEVEL := 30
 
 # Fake Kernel
