@@ -393,7 +393,7 @@ fi
 
 if getprop ro.vendor.build.fingerprint | grep -q -i \
     -e iaomi/renoir ; then
-    setprop persist.sys.qcom-brightness "$(cat /sys/class/leds/panel0-backlight/max_brightness)"
+    setprop persist.sys.qcom-brightness "$(cat /sys/class/backlight/panel0-backlight/max_brightness)"
 fi
 
 if getprop ro.vendor.build.fingerprint | grep -iq \
