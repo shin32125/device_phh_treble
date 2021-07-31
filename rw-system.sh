@@ -391,11 +391,6 @@ if getprop ro.build.overlay.deviceid |grep -iq -e RMX2020 -e RMX2027 -e RMX2040 
     setprop persist.sys.phh.fingerprint.nocleanup true
 fi
 
-if getprop ro.vendor.build.fingerprint | grep -q -i \
-    -e iaomi/renoir ; then
-    setprop persist.sys.qcom-brightness "$(cat /sys/class/backlight/panel0-backlight/max_brightness)"
-fi
-
 if getprop ro.vendor.build.fingerprint | grep -iq \
     -e xiaomi/beryllium/beryllium -e xiaomi/sirius/sirius \
     -e xiaomi/dipper/dipper -e xiaomi/ursa/ursa -e xiaomi/polaris/polaris \
