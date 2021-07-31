@@ -57,6 +57,7 @@
 	<string-array name="config_disableApksUnlessMatchedSku_apk_list" translatable="false">
         <item>com.felicanetworks.mfs</item>
         <item>com.felicanetworks.mfw.a.boot</item>
+		<item>com.felicanetworks.mfw.a.main</item>
         <item>com.felicanetworks.mfm.main</item>
         <item>com.felicanetworks.mfc</item>
     </string-array>
