@@ -652,7 +652,7 @@ fi
 
 setprop ctl.stop console
 dmesg -n 1
-if [ -f /system/phh/secure ];then
+# if [ -f /system/phh/secure ];then
     copyprop() {
         p="$(getprop "$2")"
         if [ "$p" ]; then
@@ -703,7 +703,7 @@ if [ -f /system/phh/secure ];then
 
     resetprop_phh ro.adb.secure 1
     setprop ctl.restart adbd
-fi
+# fi
 
 for abi in "" 64;do
     f=/vendor/lib$abi/libstagefright_foundation.so
