@@ -189,6 +189,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
 	android.hardware.biometrics.fingerprint@2.1-service.oppo.compat \
+	android.hardware.biometrics.fingerprint@2.1-service.oplus.compat \
 
 PRODUCT_PACKAGES += \
 	vr_hwc \
@@ -201,3 +202,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # AOSP overlays
 PRODUCT_PACKAGES += \
     NavigationBarMode2ButtonOverlay
+
+PRODUCT_PACKAGES += \
+	oplus-alert-slider

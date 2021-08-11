@@ -197,7 +197,9 @@ changeKeylayout() {
         changed=true
     fi
 
-    if getprop ro.build.overlay.deviceid |grep -q -e RMX1931 -e RMX1941 -e CPH1859 -e CPH1861 -e RMX2185;then
+    if ( getprop ro.build.overlay.deviceid |grep -q -e RMX1931 -e RMX1941 -e CPH1859 -e CPH1861 -e RMX2185) ||
+	    ( grep -q OnePlus /odm/etc/$(getprop ro.boot.prjname)/*.prop);then
+	echo 1 > /proc/touchpanel/double_tap_enable
         cp /system/phh/oppo-touchpanel.kl /mnt/phh/keylayout/touchpanel.kl
 	cp /system/phh/oppo-touchpanel.kl /mnt/phh/keylayout/mtk-tpd.kl
         chmod 0644 /mnt/phh/keylayout/touchpanel.kl
@@ -305,7 +307,12 @@ fi
 
 foundFingerprint=false
 for manifest in /vendor/manifest.xml /vendor/etc/vintf/manifest.xml /odm/etc/vintf/manifest.xml;do
-    if grep -q -e android.hardware.biometrics.fingerprint -e vendor.oppo.hardware.biometrics.fingerprint $manifest;then
+    if grep -q \
+            -e android.hardware.biometrics.fingerprint \
+            -e vendor.oppo.hardware.biometrics.fingerprint \
+            -e vendor.oplus.hardware.biometrics.fingerprint \
+            $manifest;
+        then
         foundFingerprint=true
     fi
 done
@@ -812,6 +819,10 @@ fi
 
 if [ -f /proc/oppoVersion/prjVersion ];then
     setprop ro.separate.soft $(cat /proc/oppoVersion/prjVersion)
+fi
+
+if grep -q -F ro.separate.soft /odm/build.prop;then
+	setprop ro.separate.soft "$(sed -nE 's/^ro.separate.soft=(.*)/\1/p' /odm/build.prop)"
 fi
 
 echo 1 >  /proc/tfa98xx/oppo_tfa98xx_fw_update
