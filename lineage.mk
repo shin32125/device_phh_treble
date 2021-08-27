@@ -17,3 +17,25 @@ TARGET_NEEDS_DTBOIMAGE := true
 
 PRODUCT_PACKAGES += \
    FlipFlap
+
+#NFC
+TARGET_USES_NQ_NFC := true
+
+PRODUCT_SOONG_NAMESPACES += \
+    vendor/nxp/opensource/sn100x \
+    vendor/nxp/opensource/packages/apps/Nfc
+
+PRODUCT_PACKAGES += \
+   NQNfcNci \
+   libnqnfc-nci \
+   libnqnfc_nci_jni \
+   libsn100nfc_nci_jni \
+   libsn100nfc-nci \
+   com.nxp.nfc.nq \
+   com.nxp.nfc.nq.xml \
+   com.android.nfc_extras \
+   vendor.nxp.hardware.nfc@2.0-service \
+   nfc_nci.nqx.default.hw \
+   se_nq_extn_client \
+   ls_nq_client \
+   jcos_nq_client
