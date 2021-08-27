@@ -417,9 +417,9 @@ if getprop ro.vendor.build.fingerprint | grep -iq \
     -e iaomi/renoir ; then
     setprop  persist.sys.phh.disable_audio_effects true
     setprop  persist.sys.phh.caf.audio_policy true
-    mount -o bind /mnt/phh/empty_dir /system/app/NfcNci
+    cp -f /system/phh/empty /system/app/NfcNci/NfcNci.apk || true
 else
-    mount -o bind /mnt/phh/empty_dir /system/system_ext/app/NQNfcNci
+    cp -f /system/phh/empty /system/system_ext/app/NQNfcNci/NQNfcNci.apk || true
 fi
 
 if getprop ro.vendor.build.fingerprint | grep -iq \
