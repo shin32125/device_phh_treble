@@ -29,3 +29,9 @@ if [ "$vndk" = 28 ];then
     mount $minijailSrc64 /vendor/lib64/libminijail.so
     mount $minijailSrc /vendor/lib/libminijail.so
 fi
+
+if [ -f /vendor/etc/libnfc-qrd-SN100.conf ]; then
+    mount -o bind /mnt/phh/empty_dir /system/app/NfcNci
+else
+    mount -o bind /mnt/phh/empty_dir /system/system_ext/app/NQNfcNci
+fi
