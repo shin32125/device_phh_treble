@@ -487,6 +487,10 @@ if getprop ro.vendor.build.fingerprint | grep -iq -e xiaomi/ginkgo -e  xiaomi/wi
     mount -o bind /system/phh/empty /vendor/lib/soundfx/libvolumelistener.so
 fi
 
+if getprop ro.vendor.build.fingerprint | grep -iq -e xiaomi/odin; then
+    mount -o bind /sys/class/backlight/panel0-backlight/brightness /sys/class/mi_display/disp-DSI-0/brightness_clone
+fi
+
 mount -o bind /system/phh/empty /vendor/lib/libpdx_default_transport.so
 mount -o bind /system/phh/empty /vendor/lib64/libpdx_default_transport.so
 
