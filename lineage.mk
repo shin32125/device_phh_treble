@@ -16,7 +16,8 @@ TARGET_KERNEL_SOURCE := kernel/google/sunfish
 TARGET_NEEDS_DTBOIMAGE := true
 
 PRODUCT_PACKAGES += \
-   FlipFlap
+   FlipFlap \
+   NotchBarKiller
 
 #NFC
 TARGET_USES_NQ_NFC := true
