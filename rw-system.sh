@@ -407,6 +407,7 @@ if getprop ro.vendor.build.fingerprint | grep -iq \
     -e xiaomi/grus -e xiaomi/cereus -e xiaomi/cactus -e xiaomi/raphael -e xiaomi/davinci \
     -e xiaomi/ginkgo -e xiaomi/laurel_sprout -e xiaomi/andromeda \
     -e redmi/curtana -e redmi/picasso \
+    -e xiaomi/renoir \
     -e bq/Aquaris_M10 ; then
     mount -o bind /mnt/phh/empty_dir /vendor/lib64/soundfx
     mount -o bind /mnt/phh/empty_dir /vendor/lib/soundfx
@@ -483,10 +484,6 @@ if getprop ro.vendor.build.fingerprint | grep -iq -e iaomi/cactus -e iaomi/cereu
     setprop debug.stagefright.omx_default_rank 0
 fi
 
-if getprop ro.vendor.build.fingerprint | grep -iq -e xiaomi/ginkgo -e  xiaomi/willow; then
-    mount -o bind /system/phh/empty /vendor/lib/soundfx/libvolumelistener.so
-fi
-
 if getprop ro.vendor.build.fingerprint | grep -iq -e xiaomi/odin; then
     mount -o bind /sys/class/backlight/panel0-backlight/brightness /sys/class/mi_display/disp-DSI-0/brightness_clone
 fi
@@ -534,9 +531,14 @@ if getprop ro.vendor.product.device | grep -q -e nora -e rhannah; then
     setprop debug.sf.latch_unsignaled 1
 fi
 
-if getprop ro.vendor.build.fingerprint | grep -iq -e xiaomi/daisy -e Redmi/merlin; then
+if getprop ro.vendor.build.fingerprint | grep -iq -e xiaomi/daisy; then
     setprop debug.sf.latch_unsignaled 1
     setprop debug.sf.enable_hwc_vds 1
+fi
+
+if getprop ro.vendor.build.fingerprint | grep -iq -e Redmi/merlin; then
+    setprop debug.sf.latch_unsignaled 1
+    setprop debug.sf.enable_hwc_vds 0
 fi
 
 if getprop ro.vendor.build.fingerprint | grep -iq -E -e 'huawei|honor' || getprop persist.sys.overlay.huawei | grep -iq -E -e 'true'; then
