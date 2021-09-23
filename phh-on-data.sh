@@ -35,3 +35,11 @@ if [ -f /vendor/etc/libnfc-qrd-SN100.conf ]; then
 else
     mount -o bind /mnt/phh/empty_dir /system/system_ext/app/NQNfcNci
 fi
+
+if getprop ro.vendor.build.fingerprint |grep -iq -e Rakuten/C330;then
+    chmod 0755 /system/phh/c330/android.hardware.graphics.composer@2.1-service
+    mount -o bind /system/phh/c330/android.hardware.graphics.composer@2.1-impl.so /vendor/lib64/hw/android.hardware.graphics.composer@2.1-impl.so
+    mount -o bind /system/phh/c330/hwcomposer.msm8937.so /vendor/lib64/hw/hwcomposer.msm8937.so
+    mount -o bind /system/phh/c330/libsdmcore.so /vendor/lib64/libsdmcore.so
+    mount -o bind /system/phh/c330/android.hardware.graphics.composer@2.1-service /vendor/bin/hw/android.hardware.graphics.composer@2.1-service
+fi

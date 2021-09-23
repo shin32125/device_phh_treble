@@ -132,6 +132,12 @@ PRODUCT_COPY_FILES += \
 	device/phh/treble/files/zf6-googlekey_input.kl:system/phh/zf6-googlekey_input.kl \
 	device/phh/treble/files/teracube2e-mtk-kpd.kl:system/phh/teracube2e-mtk-kpd.kl \
 
+PRODUCT_COPY_FILES += \
+	device/phh/treble/files/c330/android.hardware.graphics.composer@2.1-impl.so:system/phh/c330/android.hardware.graphics.composer@2.1-impl.so \
+	device/phh/treble/files/c330/android.hardware.graphics.composer@2.1-service:system/phh/c330/android.hardware.graphics.composer@2.1-service \
+	device/phh/treble/files/c330/hwcomposer.msm8937.so:system/phh/c330/hwcomposer.msm8937.so \
+	device/phh/treble/files/c330/libsdmcore.so:system/phh/c330/libsdmcore.so
+
 SELINUX_IGNORE_NEVERALLOWS := true
 
 # Universal NoCutoutOverlay
