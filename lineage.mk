@@ -1,9 +1,6 @@
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
-$(call inherit-product, vendor/lineage/config/BoardConfigSoong.mk)
-$(call inherit-product, device/lineage/sepolicy/common/sepolicy.mk)
 -include vendor/lineage/build/core/config.mk
 -include vendor/lineage/build/core/apicheck.mk
-PRODUCT_SHIPPING_API_LEVEL := 30
 
 # Fake Kernel
 BOARD_KERNEL_IMAGE_NAME := Image.lz4
