@@ -211,3 +211,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
 	oplus-alert-slider
+
+PRODUCT_PACKAGES = \
+    xiaomi-touch

@@ -253,6 +253,12 @@ changeKeylayout() {
         changed=true
     fi
 
+    if getprop ro.product.vendor.device |grep -qi mfh505glm; then
+        cp /system/phh/empty /mnt/phh/keylayout/uinput-fpc.kl
+        chmod 0644 /mnt/phh/keylayout/uinput-fpc.kl
+        changed=true
+    fi
+
     if [ "$changed" = true ]; then
         mount -o bind /mnt/phh/keylayout /system/usr/keylayout
         restorecon -R /system/usr/keylayout
@@ -691,8 +697,8 @@ dmesg -n 1
     copyprop ro.product.device ro.product.vendor.device
     copyprop ro.product.system.name ro.vendor.product.name
     copyprop ro.product.name ro.vendor.product.name
-    copyprop ro.product.system.name ro.product.vendor.device
-    copyprop ro.product.name ro.product.vendor.device
+    copyprop ro.product.system.name ro.product.vendor.name
+    copyprop ro.product.name ro.product.vendor.name
     copyprop ro.system.product.brand ro.vendor.product.brand
     copyprop ro.product.brand ro.vendor.product.brand
     copyprop ro.product.system.model ro.vendor.product.model
